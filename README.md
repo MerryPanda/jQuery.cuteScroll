@@ -57,7 +57,7 @@ jQuery.cuteScroll({
 	//commands:
 	remove:false,// removes scroller, restores previous scrollable element style
 	jumpToTop:false,// jumps to the top of the scrollable element
-	jumpToButtom:false,// jumps to the bottom of the scrollable element
+	jumpToBottom:false,// jumps to the bottom of the scrollable element
 	alert:false,// allerts a message -> alert: <string>
 });
 ```
