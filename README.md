@@ -61,3 +61,4 @@ jQuery.cuteScroll({
 	alert:false,// allerts a message -> alert: <string>
 });
 ```
+# Demo
