@@ -1,9 +1,95 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<title>Cute Scroll</title>
+		
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans:300" rel="stylesheet">
+		
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script src="jquery.cutescroll.min.js"></script>
+
+		<style>
+			body {margin:0; font-family:'Open Sans';}
+			.flex{display:flex; flex-wrap:wrap; width:100%;}
+			.something{width:100%; height:100rem; background:LightSkyBlue;}
+			.box {min-width:10rem; height:10rem; flex-grow:1;}
+			.btn {display:flex; width:8rem; height:4rem; justify-content:center; align-items:center; flex-grow:1; cursor:pointer;}
+		</style>
+		
+		<script>
+			var css={body:{overflow:'hidden'}};
+			//////
+			function removeAnd(i){
+				return jQuery(i).cuteScroll({remove:true, removeCss:css});
+			}
+			function randomColor(){
+				return '#'+Math.floor(Math.random()*16777215).toString(16);
+			}
+			//////
+			function b_full(){
+				removeAnd('.scroll').cuteScroll({
+					width:'100vw',
+					height:'100vh',
+					scrollerAlwaysVisible:true,
+					railVisible:true,
+					addCss:css,
+				});
+				console.log('full page');
+			};
+			function b_40rem(){
+				var c=randomColor();
+				
+				removeAnd('.scroll').cuteScroll({
+					width:'100%',
+					height:'40rem',
+					barWidth:'2rem',
+					barHeight:'2rem',
+					barMinHeight:false,
+					barColor:c,
+					railColor:c,
+					barOpacity:1,
+					railOpacity:1,
+					railBorderRadius:0,
+					barBorderRadius:'1rem',
+					railWidth:'0.1rem',
+					railIndent:'1.05rem',
+					scrollerAlwaysVisible:true,
+					railVisible:true,
+				});
+				console.log('40rem height');
+			};
+			function b_bott(){
+				jQuery('.scroll').cuteScroll({
+					jumpToBottom:true,
+				});
+				console.log('jump to bottom');
+			};
+			function b_remove(){
+				removeAnd('.scroll')
+
+				console.log('removed');
+			};
+			function moreBlocks(){
+				var o=jQuery('.content');
+					
+				for(var q=50; q>0; q--) o.append(`<div class=box style="background:${randomColor()}"></div>`)	
+			}
+			window.onload=function(){
+				moreBlocks();
+			};
+		</script>
 	</head>
 	<body>
-		<div></div>
+		<div class=scroll>
+			<div class=flex>
+				<div class=btn onclick=b_full()>Full Page Scrollable</div>
+				<div class=btn onclick=b_40rem()>40rem Height</div>
+				<div class=btn onclick=b_bott()>Jump To Bottom</div>
+				<div class=btn onclick=b_remove()>Remove Scroller</div>
+				<div class=btn onclick=moreBlocks()>Add More Blocks</div>
+			</div>
+			<div class="flex content"></div>
+		</div>
+		<div class=something></div>
 	</body>
 </html>

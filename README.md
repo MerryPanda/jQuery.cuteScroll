@@ -1,9 +1,10 @@
 # jQuery.cuteScroll
-responsive jQuery y-axis scroll plugin that supports touches, swipes, mouse events
+Responsive jQuery y-axis scroll plugin that supports touches, swipes, mouse events.
+Does not support overlapping elemens scrolling.
 
-## Installation
+### Installation
 ```html
-<script src="jquery.cutescroll.js"></script>
+<script src="jquery.cutescroll.min.js"></script>
 ```
 ### Configuration
 ```javascript
@@ -34,7 +35,7 @@ jQuery.cuteScroll.defaults={
 	scrollerFadeOutSpeed:'slow',
 	scrollerFadeInSpeed:'fast',
 
-	pageScroll:false,// check if mousewheel should scroll the window if we reach top/bottom
+	pageScroll:true,// check if mousewheel should scroll the window if we reach top/bottom
 	wheelStep:120,// scroll step for wheel
 
 	touchSwipeStrengthFactor:1.25,// touch swipe strength coefficient
@@ -46,9 +47,12 @@ jQuery.cuteScroll.defaults={
 	touchSwipeIterationTimeout:5,// iteration timeout
 	touchMoveFactor:1.1,// makes leaps faster (>1) or more slowly (<1)
 
-	height:'100%',// scrollable element height
+	height:'20rem',// scrollable element height
 	width:'100%',// scrollable element width
 	addClass:false,// adds classes to scrollable element on initialization -> addClass: <string>
+	removeClass:false,// removes classes of scrollable element on remove -> removeClass: <string>
+	addCss:false,// adds css on initialization
+	removeCss:false,// removes css on remove command, may use the same data as addCss
 
 	wrapperClass:'cuteScroll-wrapper',// default wrapper class
 	//callbacks and related settings:
@@ -61,7 +65,6 @@ jQuery.cuteScroll.defaults={
 	alert:false,// allerts a message -> alert: <string>
 };
 ```
-# Demo
+### Demo
 
-tbd
-
+[Presentation of the index.html file](https://merrypanda.github.io/jQuery.cuteScroll)
