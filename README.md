@@ -62,3 +62,5 @@ jQuery.cuteScroll({
 });
 ```
 # Demo
+
+[link](index.html)
