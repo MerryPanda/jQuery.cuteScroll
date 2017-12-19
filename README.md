@@ -63,4 +63,4 @@ jQuery.cuteScroll({
 ```
 # Demo
 
-[link](//<username>.github.io)
+[link](//{{username}}.github.io)
