@@ -1,4 +1,4 @@
-# jQuery.cuteScroll
+# jQuery.cuteScroll 1.0
 Responsive jQuery y-axis scroll plugin that supports touches, swipes, mouse events.
 Does not support overlapping elemens scrolling.
 
