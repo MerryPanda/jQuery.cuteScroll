@@ -7,7 +7,7 @@ responsive jQuery y-axis scroll plugin that supports touches, swipes, mouse even
 ```
 ### Configuration
 ```javascript
-jQuery.cuteScroll({
+jQuery.cuteScroll.defaults={
 	barColor:'black',// bar default color
 	barHeight:false,// if has a value, won't be dynamically changed
 	barWidth:false,// if empty, uses scrollerWidth
@@ -59,7 +59,7 @@ jQuery.cuteScroll({
 	jumpToTop:false,// jumps to the top of the scrollable element
 	jumpToBottom:false,// jumps to the bottom of the scrollable element
 	alert:false,// allerts a message -> alert: <string>
-});
+};
 ```
 # Demo
 
