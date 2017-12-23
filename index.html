@@ -11,85 +11,140 @@
 		<style>
 			body {margin:0; font-family:'Open Sans';}
 			.flex{display:flex; flex-wrap:wrap; width:100%;}
-			.something{width:100%; height:100rem; background:LightSkyBlue;}
-			.box {min-width:10rem; height:10rem; flex-grow:1;}
-			.btn {display:flex; width:8rem; height:4rem; justify-content:center; align-items:center; flex-grow:1; cursor:pointer;}
+			.something{width:100%; height:100rem; background:green;}
+			.box {width:6rem; height:6rem; flex-grow:1;}
+			.btn {display:flex; margin:1rem; justify-content:center; align-items:center; flex-grow:1; cursor:pointer;}
 		</style>
 		
 		<script>
+			var scroll='.scroll';
+			var scrollbox='.scrollbox';
+			var all='.scroll, .scrollbox';
 			var css={body:{overflow:'hidden'}};
 			//////
-			function removeAnd(i){
-				return jQuery(i).cuteScroll({remove:true, removeCss:css});
-			}
 			function randomColor(){
 				return '#'+Math.floor(Math.random()*16777215).toString(16);
 			}
 			//////
 			function b_full(){
-				removeAnd('.scroll').cuteScroll({
-					width:'100vw',
-					height:'100vh',
-					scrollerAlwaysVisible:true,
-					railVisible:true,
-					addCss:css,
+				jQuery(scroll).cuteScroll({
+					recreate:{
+						area:{
+							width:'100vw',
+							height:'100vh',
+						},
+						scroller:{
+							addClass:'someclass',
+							alwaysVisible:true,
+						},
+						element:{
+							body:{
+								overflow:'hidden',
+							}
+						},
+					},
 				});
-				console.log('full page');
 			};
-			function b_40rem(){
-				var c=randomColor();
-				
-				removeAnd('.scroll').cuteScroll({
-					width:'100%',
-					height:'40rem',
-					barWidth:'2rem',
-					barHeight:'2rem',
-					barMinHeight:false,
-					barColor:c,
-					railColor:c,
-					barOpacity:1,
-					railOpacity:1,
-					railBorderRadius:0,
-					barBorderRadius:'1rem',
-					railWidth:'0.1rem',
-					railIndent:'1.05rem',
-					scrollerAlwaysVisible:true,
-					railVisible:true,
+			function b_many(){
+				jQuery(scrollbox).cuteScroll({
+					recreate:{
+						area:{
+							width:'90vw',
+							height:'25vh',
+						},
+						scroller:{
+							alwaysVisible:true,
+						},
+						priority:10,
+					},
 				});
-				console.log('40rem height');
+			};
+			function style_dot(){
+				jQuery(all).cuteScroll({
+					update:{
+						bar:{
+							width:'2rem',
+							height:'2rem',
+							minHeight:'',
+							right:'0.1rem',
+							borderRadius:'1rem',
+						},
+						rail:{
+							width:'0.1rem',
+							right:'1.05rem',
+							//visible:true,
+						},
+						scroller:{
+							opacity:1,
+						},
+					},
+				});
+			}
+			function rand(){
+				jQuery(all).cuteScroll({
+					update:{
+						bar:{
+							background:randomColor(),
+						},
+						rail:{
+							background:randomColor(),
+						},
+					},
+				});
+			}
+			function b_50(){
+				jQuery(scroll).cuteScroll({
+					recreate:{
+						rail:{
+							visible:false,
+						},
+						scroller:{
+							//alwaysVisible:true,
+						},
+						area:{
+							height:'50vh'
+						}
+					}
+				});
 			};
 			function b_bott(){
-				jQuery('.scroll').cuteScroll({
-					jumpToBottom:true,
-				});
-				console.log('jump to bottom');
-			};
+				jQuery(all).cuteScroll({jumpToBottom:true});
+			}
+			function b_top(){
+				jQuery(all).cuteScroll({jumpToTop:true});
+			}
 			function b_remove(){
-				removeAnd('.scroll')
-
-				console.log('removed');
-			};
-			function moreBlocks(){
-				var o=jQuery('.content');
+				 jQuery(all).cuteScroll({remove:true});
+			}
+			function moreBlocks(e){
+				var s='';
+				
+				for(var q=60; q>0; q--) s+=`<div class=box style="background:${randomColor()}"></div>`;
 					
-				for(var q=50; q>0; q--) o.append(`<div class=box style="background:${randomColor()}"></div>`)	
+				jQuery(e).append(`<div class="flex scrollbox">${s}</div>`);
+			}
+			function MoreBlocksForContent(){
+				moreBlocks('.content');
 			}
 			window.onload=function(){
-				moreBlocks();
+				MoreBlocksForContent();
 			};
 		</script>
 	</head>
 	<body>
 		<div class=scroll>
 			<div class=flex>
-				<div class=btn onclick=b_full()>Full Page Scrollable</div>
-				<div class=btn onclick=b_40rem()>40rem Height</div>
+				<div class=btn onclick=b_full()>Full Page</div>
+				<div class=btn onclick=b_50()>50vh Height</div>
+				<div class=btn onclick=b_many()>Many Scrollers</div>
+				<div class=btn onclick=style_dot()>Dot Style</div>
+				<div class=btn onclick=rand()>Random Color</div>
+				<div class=btn onclick=b_top()>Jump To Top</div>
 				<div class=btn onclick=b_bott()>Jump To Bottom</div>
 				<div class=btn onclick=b_remove()>Remove Scroller</div>
-				<div class=btn onclick=moreBlocks()>Add More Blocks</div>
+				<div class=btn onclick="MoreBlocksForContent()">Add More Blocks</div>
 			</div>
 			<div class="flex content"></div>
 		</div>
-		<div class=something></div>
 	</body>
 </html>

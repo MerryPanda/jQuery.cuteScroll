@@ -1,70 +1,148 @@
 # jQuery.cuteScroll
 Responsive jQuery y-axis scroll plugin that supports touches, swipes, mouse events.
-Does not support overlapping elemens scrolling.
+Does not support overlapping elemens scrolling for now.
 
-### Installation
+## Installation
 ```html
 <script src="jquery.cutescroll.min.js"></script>
 ```
-### Configuration
+
+## Configuration
 ```javascript
 jQuery.cuteScroll.defaults={
-	barColor:'black',// bar default color
-	barHeight:false,// if has a value, won't be dynamically changed
-	barWidth:false,// if empty, uses scrollerWidth
-	barMinHeight:'6rem',
-	barMaxHeight:'auto',
-	barOpacity:0.4,
-	barBorderRadius:'1rem',
-	barDraggable:true,// allows to drag the bar
-	barClass:'cuteScroll-bar', // default bar class
-
-	railColor:'black',//rail default color
-	railWidth:false,// if not defined, uses scrollerWidth
-	railIndent:false,// if not defined, uses scrollerIndent
-	railOpacity:0.1,
-	railBorderRadius:'1rem',
-	railVisible:false,// Makes rail visible
-	railClass:'cuteScroll-rail',// default rail class
-
-	scrollerIndent:'0.1rem',// scroller edge indent
-	scrollerPosition:'right',// side position -> scrollerPosition: right|left
-	scrollerWidth:'0.4rem',
-	scrollerAlwaysVisible:false,// if true, scroller becomes permanently visible
-	scrollerHideDelay:1000,
-	scrollerFadeOutSpeed:'slow',
-	scrollerFadeInSpeed:'fast',
-
-	pageScroll:true,// check if mousewheel should scroll the window if we reach top/bottom
-	wheelStep:120,// scroll step for wheel
-
-	touchSwipeStrengthFactor:1.25,// touch swipe strength coefficient
-	touchSwipeFadingFactor:0.075,// fading coefficient
-	touchSwipeVelocityThreshold:0.5,// touch movement velocity which is considered a swipe
-	touchSwipeDistanceThreshold:10,// touch movement distance to be considered a swipe
-	touchSwipeTimeAdjustmentThreshold:500,// recaltulates swipe parameters
-	touchSwipeIterationMinDistance:0.2,// min swipe iteration distance
-	touchSwipeIterationTimeout:5,// iteration timeout
-	touchMoveFactor:1.1,// makes leaps faster (>1) or more slowly (<1)
-
-	height:'20rem',// scrollable element height
-	width:'100%',// scrollable element width
-	addClass:false,// adds classes to scrollable element on initialization -> addClass: <string>
-	removeClass:false,// removes classes of scrollable element on remove -> removeClass: <string>
-	addCss:false,// adds css on initialization
-	removeCss:false,// removes css on remove command, may use the same data as addCss
-
-	wrapperClass:'cuteScroll-wrapper',// default wrapper class
-	//callbacks and related settings:
-	onContentChange:false,// expects function which is called on content change -> onContentChange: <function>
-	onContentChangeShow:true,// show scroller on content change if it is reasonable
-	//commands:
-	remove:false,// removes scroller, restores previous scrollable element style
-	jumpToTop:false,// jumps to the top of the scrollable element
-	jumpToBottom:false,// jumps to the bottom of the scrollable element
-	alert:false,// allerts a message -> alert: <string>
+	bar:{
+		// any css settings
+		opacity:0.5,
+		minHeight:'4rem',
+		zIndex:110,
+		////// settings
+		class:'cuteScroll-bar',//default class name
+	},
+	rail:{
+		// any css settings
+		opacity:0.1,
+		height:'100%',
+		zIndex:100,
+		////// settings
+		visible:true,// Makes rail visible
+		class:'cuteScroll-rail',//default class name
+	},
+	scroller:{// bar and rail will get these values if have no own
+		// any css settings
+		background:'black',
+		width:'0.5rem',
+		right:0,
+		////// settings
+		alwaysVisible:false,// if true, scroller becomes permanently visible
+		hideDelay:1000,
+		fadeOutSpeed:'slow',
+		fadeInSpeed:'fast',
+	},
+	canvas:{//scrollable element
+		// any css settings
+		class:'cuteScroll-canvas',//default class name
+	},
+	wrapper:{
+		// any css settings
+		class:'cuteScroll-wrapper',//default class name
+	},
+	area:{// wrapper and canvas (scrollable element) will get these values if have no own
+		// any css settings
+		height:'20rem',// scrollable element height
+		width:'100%',// scrollable element width
+	},
+	mouse:{
+		pageScroll:true,// check if mousewheel should scroll the window if we reach top/bottom
+		wheelStep:120,// scroll step for a wheel
+	},
+	touch:{
+		moveFactor:1.1,// makes leaps faster (>1) or more slowly (<1)
+		swipeStrengthFactor:1.25,// touch swipe strength coefficient
+		swipeFadingFactor:0.075,// fading coefficient
+		swipeVelocityThreshold:0.5,// touch movement velocity which is considered a swipe
+		swipeDistanceThreshold:10,// touch movement distance to be considered a swipe
+		swipeTimeAdjustmentThreshold:500,// recaltulates swipe parameters
+		swipeIterationMinDistance:0.2,// min swipe iteration distance
+		swipeIterationTimeout:5,// iteration timeout
+	},
+	//element:{}, - you can change properties of every element you want
+	on:{//related to events
+		contentChange:false,// expects function which is called on content change -> onContentChange: <function>
+		contentChangeShowScroller:true,// show scroller on content change if it is reasonable
+	},
+	//priority:1,//defines overlapping priority, not supported for now
 };
 ```
-### Demo
 
+## How To Use
+All confuguration commands should be passed included in a command object, as simple as this:
+```javascript
+jQuery.cuteScroll({
+	create:{// is the command object
+		area:{
+			// any css settings
+			width:'100vw',
+			height:'100vh'
+		},
+		element:{
+			body:{
+				// any css settings
+				overflow:'hidden',
+			}
+		}
+	}
+});
+```
+
+### Commands
+- create:<object> - creates a scroller
+- recreate:<object> - recreates a scroller
+- update:<object> - updates settings
+- jumpToTop:<boolean> - jumps to the top of a scrollable div if TRUE
+- jumpToBottom:<boolean> - jumps to the top of a scrollable div if TRUE
+- log:<string> - logs some message
+- alert:<string> - alerts some message
+- remove:<boolean> - removes a scroller if TRUE
+
+### AddClass, removeClass
+You can add or remove any class of a scroller element. All changes will be reversed on the remove command
+```javascript
+jQuery.cuteScroll({
+	create:{// is the command object
+		bar:{
+			// any css settings
+			addClass:'newMyBarClass'
+			removeClass:'formerMyBarClass'
+		},
+		area:{
+			// any css settings
+			width:'100vw',
+			height:'100vh'
+		},
+	}
+});
+```
+
+### Editing Other Elements
+You can also edit other elements properties by tag, class or id name or just change their css values. All changes will be reversed on the remove command
+```javascript
+jQuery.cuteScroll({
+	update:{// is the command object
+		element:{
+			'myElementClass':{
+				// any css settings
+				height:'100rem',
+				background:'red',
+				addClass:'classNameToAdd'
+			},
+			'myOtherElementClass':{
+				// any css settings
+				removeClass:'classNameToRemove'
+			}
+		}
+	}
+});
+```
+
+## Demo
 [Presentation of the index.html file](https://merrypanda.github.io/jQuery.cuteScroll)
