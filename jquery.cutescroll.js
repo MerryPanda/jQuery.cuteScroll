@@ -788,7 +788,7 @@ Version 1.0
 		},
 		//element:{}, - you can change properties of every element you want
 		on:{//related to events
-			contentChange:false,// expects function which is called on content change -> onContentChange: <function>
+			contentChange:false,// expects a function which is called on content change
 			contentChangeShowScroller:true,// show scroller on content change if it is reasonable
 		},
 		//priority:1,//defines overlapping priority, not supported for now

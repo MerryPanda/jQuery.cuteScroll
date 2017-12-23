@@ -67,7 +67,7 @@ jQuery.cuteScroll.defaults={
 	},
 	//element:{}, - you can change properties of every element you want
 	on:{//related to events
-		contentChange:false,// expects function which is called on content change -> onContentChange: <function>
+		contentChange:false,// expects a function which is called on content change
 		contentChangeShowScroller:true,// show scroller on content change if it is reasonable
 	},
 	//priority:1,//defines overlapping priority, not supported for now
@@ -95,14 +95,14 @@ jQuery.cuteScroll({
 ```
 
 ### Commands
-- create:`<object>` - creates a scroller
-- recreate:`<object>` - recreates a scroller
-- update:`<object>` - updates settings
-- jumpToTop:`<boolean>` - jumps to the top of a scrollable div if TRUE
-- jumpToBottom:`<boolean>` - jumps to the bottom of a scrollable div if TRUE
-- log:`<string>` - logs some message via console
-- alert:`<string>` - alerts some message
-- remove:`<boolean>` - removes a scroller if TRUE
+- create:`object` - creates a scroller
+- recreate:`object` - recreates a scroller
+- update:`object` - updates settings
+- jumpToTop:`boolean` - jumps to the top of a scrollable div if TRUE
+- jumpToBottom:`boolean` - jumps to the bottom of a scrollable div if TRUE
+- log:`string` - logs some message via console
+- alert:`string` - alerts some message
+- remove:`boolean` - removes a scroller if TRUE
 
 ### AddClass, removeClass
 You can add or remove any class of a scroller element. All changes will be reversed on the remove command
@@ -127,17 +127,34 @@ jQuery.cuteScroll({
 You can also edit other elements properties by tag, class or id name or just change their css values. All changes will be reversed on the remove command
 ```javascript
 jQuery.cuteScroll({
-	update:{// is the command object
-		element:{
-			'myElementClass':{
-				// any css settings
-				height:'100rem',
-				background:'red',
-				addClass:'classNameToAdd'
-			},
-			'myOtherElementClass':{
-				// any css settings
-				removeClass:'classNameToRemove'
+	create:{// is the command object
+		bar:{
+			// any css settings
+			addClass:'newMyBarClass'
+			removeClass:'formerMyBarClass'
+		},
+		area:{
+			// any css settings
+			width:'100vw',
+			height:'100vh'
+		},
+	}
+});
+```
+
+### Listeners
+#### on.contentChange
+Expects a function which will be called on a scrollable element content change
+```javascript
+jQuery.cuteScroll({
+	create:{// is the command object
+		on:{
+			contentChange:function(e){// e - is the scrollable element jQuery object
+				e.cuteScroll({
+					update:{
+						jumpToTop:true
+					}
+				})
 			}
 		}
 	}
