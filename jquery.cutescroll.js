@@ -5,7 +5,7 @@ Cute Scroll jQuery plugin by Merry Panda (https://github.com/MerryPanda)
 
 Inspired by Slim Scroll https://github.com/rochal/jQuery-slimScroll
 
-Version 1.0
+Version 1.1
 */
 (function(jq){
 	var util={//utils
