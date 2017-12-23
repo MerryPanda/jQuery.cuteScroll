@@ -75,7 +75,7 @@ jQuery.cuteScroll.defaults={
 ```
 
 ## How To Use
-All confuguration commands should be passed included in a command object, as simple as this:
+All confuguration commands should be included in a command object to be recognized, as simple as this:
 ```javascript
 jQuery.cuteScroll({
 	create:{// is the command object
@@ -95,14 +95,14 @@ jQuery.cuteScroll({
 ```
 
 ### Commands
-- create:<object> - creates a scroller
-- recreate:<object> - recreates a scroller
-- update:<object> - updates settings
-- jumpToTop:<boolean> - jumps to the top of a scrollable div if TRUE
-- jumpToBottom:<boolean> - jumps to the top of a scrollable div if TRUE
-- log:<string> - logs some message
-- alert:<string> - alerts some message
-- remove:<boolean> - removes a scroller if TRUE
+- create:`<object>` - creates a scroller
+- recreate:`<object>` - recreates a scroller
+- update:`<object>` - updates settings
+- jumpToTop:`<boolean>` - jumps to the top of a scrollable div if TRUE
+- jumpToBottom:`<boolean>` - jumps to the bottom of a scrollable div if TRUE
+- log:`<string>` - logs some message via console
+- alert:`<string>` - alerts some message
+- remove:`<boolean>` - removes a scroller if TRUE
 
 ### AddClass, removeClass
 You can add or remove any class of a scroller element. All changes will be reversed on the remove command
