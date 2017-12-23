@@ -127,7 +127,7 @@ jQuery.cuteScroll({
 You can also edit other elements properties by tag, class or id name or just change their css values. All changes will be reversed on the remove command
 ```javascript
 jQuery.cuteScroll({
-	create:{// is the command object
+	update:{// is the command object
 		'someTag':{
 			// any css settings
 			background:'pink',
