@@ -128,15 +128,18 @@ You can also edit other elements properties by tag, class or id name or just cha
 ```javascript
 jQuery.cuteScroll({
 	create:{// is the command object
-		bar:{
+		'someTag':{
 			// any css settings
-			addClass:'newMyBarClass'
-			removeClass:'formerMyBarClass'
+			background:'pink',
 		},
-		area:{
+		'.someClass':{
 			// any css settings
-			width:'100vw',
-			height:'100vh'
+			addClass:'newClass'
+			removeClass:'formerClass'
+		},
+		'#someId':{
+			// any css settings
+			background:'blue',
 		},
 	}
 });
