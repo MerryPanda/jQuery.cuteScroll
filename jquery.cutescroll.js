@@ -1,11 +1,7 @@
 /*
-2017
-
 Cute Scroll jQuery plugin by Merry Panda (https://github.com/MerryPanda)
 
 Inspired by Slim Scroll https://github.com/rochal/jQuery-slimScroll
-
-Version 1.1
 */
 (function(jq){
 	var util={//utils
@@ -275,7 +271,7 @@ Version 1.1
 				});
 
 				el.canvas.jq.on('touchend.cs',function(e){
-					scroller.visibility.canBeHidden('touch');
+					scroller.visibility.canBeHidden();
 
 					scroller.scrollByTouchSwipe(touch.velocityGet(),touch.getDelta());
 				});
@@ -360,13 +356,15 @@ Version 1.1
 				noticer.setToDisabled();
 
 				display.hide();
+				
+				operation.jumpToTop();
 			};
 			function enable(){
 				noticer.setToEnabled();
 
 				that.visibility.canBeHidden();
 
-				operation.barHeightApplyProportionalToContent();
+				operation.adjustPosition();
 
 				if(cfg.on.contentChangeShowScroller) that.visibility.shouldBeShown();
 			};
@@ -483,14 +481,15 @@ Version 1.1
 			var percentage;
 			//////
 			this.wheelIteration=function(){
-				return cfg.mouse.wheelStep/this.canvasMaxOffset()*this.railHeight();
+				return cfg.mouse.wheelStep/this.canvasMaxOffset()*this.areaHeight();
 			}
 			this.touchIteration=function(delta){
-				return cfg.touch.moveFactor*delta/this.canvasMaxOffset()*this.railHeight();
+				return cfg.touch.moveFactor*delta/this.canvasMaxOffset()*this.areaHeight();
 			}
 			//////
 			this.shouldItBeScrolled=function(){
-				return this.canvasHeight()>this.railHeight() ? true : false;
+				//console.log('---shouldItBeScrolled',el.canvas.jq,Math.round(this.canvasHeight()),Math.round(this.railHeight()))
+				return (this.canvasHeight() > this.areaHeight()) ? true : false;
 			};
 			this.shouldItContinueToScrollPage=function(){
 				return (this.isAtEdge() && cfg.mouse.pageScroll) ? true : false;
@@ -503,16 +502,21 @@ Version 1.1
 			}
 			//////
 			this.canvasHeight=function(){
+				//console.log('---canvasHeight',el.canvas.jq,el.canvas.js.scrollHeight,el.canvas.js.clientHeight)
 				return el.canvas.js.scrollHeight;
 			}
 			this.canvasMaxOffset=function(){
-				return Math.abs(this.canvasHeight()-this.railHeight());
+				return Math.abs(this.canvasHeight()-this.areaHeight());
 			}
 			this.canvasAdjustedPosition=function(){
 				return percentage*this.canvasMaxOffset();
 			}
 			this.canvasVisibleProportion=function(){
-				return Math.abs(this.railHeight()/this.canvasHeight());
+				return Math.abs(this.areaHeight()/this.canvasHeight());
+			}
+			//////
+			this.areaHeight=function(){
+				return el.canvas.js.clientHeight
 			}
 			//////
 			this.railHeight=function(){
@@ -564,18 +568,38 @@ Version 1.1
 			function canvasMove(i){
 				el.canvas.jq.scrollTop(i);
 			}
+			function canvasAdjustToBar(){
+				canvasMove(calc.canvasAdjustedPosition());
+			}
 			function moveTo(i){
 				barMove(i);
-				canvasMove(calc.canvasAdjustedPosition());
+				canvasAdjustToBar();
 			}
 			//////
 			this.move=function(y){
 				//console.log('--move',el.canvas.jq,calc.barMovementDistance(y),calc.canvasAdjustedPosition())
 				moveTo(calc.barMovementDistance(y));
 			};
+			/*
+			this.canvasAdjustToBar=function(){
+				//console.log('---canvasVisible',el.canvas.jq)
+				canvasAdjustToBar();
+			};
+			*/
+			this.adjustPosition=function(){
+				//console.log('---barHeightApplyProportionalToContent',el.canvas.jq,el.canvas.js.scrollHeight,calc.barHeightProportionalToContent())
+				if(!cfg.bar.height) barHeightSet(calc.barHeightProportionalToContent());
+				
+				this.move(0);
+				
+				canvasAdjustToBar();
+			}
+			/*
 			this.barHeightApplyProportionalToContent=function(){
+				console.log('---barHeightApplyProportionalToContent',el.canvas.jq,calc.barHeightProportionalToContent())
 				if(!cfg.bar.height) barHeightSet(calc.barHeightProportionalToContent());
 			}
+			*/
 			this.jumpToTop=function(){
 				moveTo(calc.barJumpToTop());
 			}
