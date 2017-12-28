@@ -811,7 +811,7 @@ Inspired by Slim Scroll https://github.com/rochal/jQuery-slimScroll
 			swipeIterationTimeout:5,// iteration timeout
 		},
 		//element:{}, - you can change properties of every element you want
-		on:{//related to events
+		on:{// listeners and related settings
 			contentChange:false,// expects a function which is called on content change
 			contentChangeShowScroller:true,// show scroller on content change if it is reasonable
 		},

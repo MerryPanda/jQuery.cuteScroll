@@ -66,18 +66,19 @@ jQuery.cuteScroll.defaults={
 		swipeIterationTimeout:5,// iteration timeout
 	},
 	//element:{}, - you can change properties of every element you want
-	on:{//related to events
+	on:{// listeners and related settings
 		contentChange:false,// expects a function which is called on content change
 		contentChangeShowScroller:true,// show scroller on content change if it is reasonable
 	},
 	//priority:1,//defines overlapping priority, not supported for now
+};
 };
 ```
 
 ## How To Use
 All confuguration commands should be included in a command object to be recognized, as simple as this:
 ```javascript
-jQuery.cuteScroll({
+jQuery(element).cuteScroll({
 	create:{// is the command object
 		area:{
 			// any css settings
@@ -107,7 +108,7 @@ jQuery.cuteScroll({
 ### AddClass, removeClass
 You can add or remove any class of a scroller element. All changes will be reversed on the remove command
 ```javascript
-jQuery.cuteScroll({
+jQuery(element).cuteScroll({
 	create:{// is the command object
 		bar:{
 			// any css settings
@@ -126,7 +127,7 @@ jQuery.cuteScroll({
 ### Editing Other Elements
 You can also edit other elements properties by tag, class or id name or just change their css values. All changes will be reversed on the remove command
 ```javascript
-jQuery.cuteScroll({
+jQuery(element).cuteScroll({
 	update:{// is the command object
 		'someTag':{
 			// any css settings
@@ -149,7 +150,7 @@ jQuery.cuteScroll({
 #### on.contentChange
 Expects a function which will be called on a scrollable element content change
 ```javascript
-jQuery.cuteScroll({
+jQuery(element).cuteScroll({
 	create:{// is the command object
 		on:{
 			contentChange:function(e){// e - is the scrollable element jQuery object
